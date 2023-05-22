@@ -44,9 +44,6 @@ int main() {
         inst /= two;
     }
     binary[thirtytwo] = zero;
-    // for (i = 31; i >= 0; i--)
-        // printf("%c", binary[i]);
-    // printf("\n");
     N = four * binary[thirtyone] + two * binary[thirty] + binary[twentynine] + one;
     printf("%d ", N);
     for (i = zero; i < N; i++) {
