@@ -1,41 +1,34 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
+
+void print_operators(int operators) {
+    if (operators == 0) printf(" +");
+    else if (operators == 1) printf(" -");
+    else if (operators == -2) printf(" *");
+    else if (operators == -1) printf(" /");
+}
 
 int main()
 {
-    
-    unsigned int inst;  // instructiunea
-    scanf("%u", &inst); // se citeste instructiunea
-    int N;  // numarul de instructiuni
-    int op;  // variabila pentru decidere operatori
+    unsigned int instructions;
+    scanf("%u", &instructions); // scanning the instruction
+    int numberOfOperations, operators; // declaring the
+    // number of operations and their types
 
-    N = inst >> (32 - 3);  //shifteaza bitii 
-    N = N + 1;  // numarul relevant pt primii 3 biti
-    printf("%d", N);  //afiseaza numarul de op
-
-    for (int i = 0; i < N; i++)
-    {
-        op = inst << (3 + 2 * i);  //shiftare pentru a selecta bitii 2 cate 2
-        op = op >> 30;
-        if (op == 0)  // conditiile pentru decidere op
-            printf(" +");
-        if (op == 1)
-            printf(" -");
-        if (op == -2)
-        {
-            printf(" *");
-        }
-        if (op == -1)
-        {
-            printf(" /");
-        }
+    numberOfOperations = instructions >> (32 - 3); // shifting the first 3 bits 
+    numberOfOperations++; // calculating the number of operations
+    printf("%d", numberOfOperations); // printing it
+    register int i;
+    for (i = 0; i < numberOfOperations; i++) { // going through the operations
+        operators = instructions << (3 + 2 * i); // shifting to analyze 2 bits at a time
+        operators = operators >> 30; // getting to the value we are interested in
+        print_operators(operators); // printing the operation
     }
-   unsigned int Dim=0;  //dimensiunea
-   Dim= inst << (3 + 2 * N);
-    Dim = Dim >> 28;
-    Dim++;
-    printf(" %u\n", Dim);
-
-
+    unsigned int dimension = 0; // declaring the dimension of each operator
+    dimension = instructions << (3 + 2 * numberOfOperations);
+    dimension = dimension >> 28;
+    dimension++;
+    printf(" %u\n", dimension); // and finally printing it
     return 0;
 }
