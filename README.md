@@ -71,3 +71,37 @@ In this task, we will extend the implementation from Task 2 to execute instructi
 TASK 4
 
 Implement operator precedence, so that * and / have equal precedence but higher precedence than + and -.
+
+#INITIAL_PROJECT
+
+TASK 1
+For this task, we converted the unsigned int number to its binary form and stored it in a vector using repeated divisions by 2. Since we stored the remainders in the vector in the order of the divisions, the binary form of the given number is reversed. Therefore, we iterate over the vector in reverse order. The last 3 bits represent the number N, which is then converted to base 10. Next, we iterate over the bit vector, taking 2 bits at a time, and based on their values, we display the operation signs. The last 4 bits represent the operand size, and their value is also converted to base 10.
+
+TASK 2
+Using the solution from the previous task, we calculate how many additional numbers need to be read based on the given formula. Instead of displaying the operations, they are stored in a vector. Knowing that the operations are stored in 16 bits, we create another vector to store the binary codes of the input numbers. Thus, their values are concatenated, allowing us to access the desired number of bits for operands' dimensions. Although this task assumes operand sizes are powers of 2, making the 16-bit space flexible and intuitive, this solution can handle operands with arbitrary sizes (i.e., non-powers of 2) as well. The input numbers are converted to base 2 and then concatenated, using the dimension itself as the separator. Finally, the program divides the resulting vector into N+2 sections, each of length equal to the operand size. The first N+1 sections are converted to base 10 and stored in another vector, while the last section (if it exists) is ignored. Then, the program simultaneously iterates over the operations vector and the operands vector. At each operation, the next operand receives the result of the operation between it and the current operand, and the desired result is displayed at the end of the iteration.
+
+TASK 3
+Same code as Task 2, explained above.
+
+TASK 4
+Essentially, we have the same code as in the previous task, but unlike before, the final iteration over the two vectors is done twice. The first iteration eliminates the high-priority operations by replacing the current element with the result of the operation between it and the next element, shifting the following elements one position to the left. The second iteration is similar to the previous tasks, replacing the next element with the result of the operation between it and the current operand, and the desired result is displayed at the end of the iteration.
+
+INEFFICIENCY
+The above implementation is inefficient due to the complete lack of bit operations or dynamic allocation. Although it eventually yields the correct result, this solution is specific to a high school level and will be optimized.
+#OPTIMIZATION
+
+We will optimize the code by using bitwise operations. We will modularize the code by creating relevant functions and organizing them into separate folders named "src" and "checker". Additionally, we will create multiple files for better clarity. Instead of storing bits in vectors, we will utilize bitwise operations.
+
+#TASK_MANAGEMENT
+
+Maria:
+
+Optimization using bits: Task 2 and Task 3.
+Modularization: Task 2 and Task 3.
+Alex:
+
+Optimization using bits: Task 1 and Task 4.
+Modularization: Task 1 and Task 4.
+#GIT REPO
+
+https://github.com/mariad765/optim_microprocessor
