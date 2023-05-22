@@ -97,17 +97,33 @@ long int performCalculations(unsigned short *numere, char *vect_operatori,
 }
 
 int main() {
+
+  // Read the instruction from the user
   unsigned int inst = readInstruction();
+
+  // Determine the number of instructions
   int N = getNumInstructions(inst);
+
+  // Allocate memory for storing numbers and operators
   unsigned short *numere = malloc(NR_MAX_numere * sizeof(unsigned short));
   char *vect_operatori = malloc(NR_MAX_numere * sizeof(char));
+
+  // Calculate the dimension and the number of operands
   int Dim = getDimension(inst, N);
   int x = getNumOperands(Dim);
+
+  // Calculate the number of numbers that need to be decomposed
   int nr_numere = getNumNumbers(N, Dim);
+
+  // Read numbers from the user
   readNumbers(numere, nr_numere);
+
+  // Perform the calculations
   long int rezult =
       performCalculations(numere, vect_operatori, nr_numere, Dim, x);
+
   printf("%ld\n", rezult);
+
   free(vect_operatori);
   free(numere);
   return 0;
