@@ -1,0 +1,15 @@
+TASK 1
+
+For this task, we converted the unsigned integer into its binary form, which we stored in a vector using repeated divisions by 2. Since we stored the remainders in the vector in the order of division, the binary form of the given number is stored in reverse order, so we will traverse the vector in reverse. Thus, the last 3 bits represent the number N, which will be converted to base 10. Then, we iterate through the bit vector, taking them in pairs, and based on their values, we display the operation signs. The last 4 bits represent the size of the operands, and its value is also converted to base 10.
+
+TASK 2
+
+Using the solution from the previous task, we calculate how many additional numbers need to be read with the given formula, and instead of displaying the operations, they are stored in a vector. Knowing that these numbers are stored in 16 bits, we create another vector to store the binary codes of the input numbers. Thus, their values will be concatenated, allowing us to access the desired number of bits for the dimensions of any operands. Although in this task, the possible dimensions of the operands are powers of 2, making the 16-bit space flexible and intuitively usable, this approach allows for operands with unusual dimensions (i.e., non-powers of 2) without any issues. This is because the input numbers are converted to base 2 and then concatenated, with the dimension itself acting as the separator. Finally, the program separates the resulting vector into N+2 sections, each of length equal to the dimension. The first N+1 sections are converted to base 10 and stored in another vector, while the last section (if it exists) is ignored. Then, the operation vector and the operand vector are traversed simultaneously. For each operation, the next operand receives the result of the operation between it and the current operand, and the requested result is displayed at the end of the traversal.
+
+TASK 3
+
+Same code as in task 2, the explanation is above.
+
+TASK 4
+
+Essentially, we have the same code, but unlike the previous one, the final traversal of the two vectors is performed twice. The first traversal is used to eliminate the priority operations by replacing the current element with the result of the operation between it and the next element and shifting the following elements one position to the left. The second traversal is similar to the ones in the previous tasks, where the next element is replaced with the result of the operation between it and the current operand, and the requested result is displayed at the end of the traversal.
