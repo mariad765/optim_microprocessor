@@ -52,7 +52,8 @@ int getNumNumbers(int N, int Dim) {
 
 // Function to read numbers from the user
 void readNumbers(unsigned short *numere, int nr_numere) {
-  for (int i = 0; i < nr_numere; i++) {
+  register int i;
+  for (i = 0; i < nr_numere; i++) {
     scanf("%hu", &numere[i]);
   }
 }
@@ -62,9 +63,11 @@ long int performCalculations(unsigned short *numere, char *vect_operatori,
                              int nr_numere, int Dim, int x) {
   unsigned short *operand = calloc(NR_MAX_numere, sizeof(unsigned short));
   long int rezult = 0;
-  int k = 0;
-  for (int i = 0; i < nr_numere; i++) {
-    for (int j = 0; j < x; j++) {
+  register int k = 0;
+  register int j = 0;
+  register int i = 0;
+  for (i = 0; i < nr_numere; i++) {
+    for (j = 0; j < x; j++) {
       operand[j] = numere[i] << (Dim * j);
       operand[j] = operand[j] >> (Dim * (x - 1));
       if ((i == 0) && (j == 0))
