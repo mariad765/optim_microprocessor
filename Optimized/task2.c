@@ -41,39 +41,26 @@ unsigned int get_dimension(unsigned int inst, int N) {
   Dim++;
   return Dim;
 }
-int main() {
 
-  unsigned int inst = 0;
-  scanf("%u", &inst);
-
-  int N = 0;
-  N = get_number_of_instruction(inst);
-
-  unsigned short *numere = calloc(NR_MAX_numere, sizeof(unsigned short));
-  char *vect_operatori = calloc(NR_MAX_numere, sizeof(char));
-
-  initialize_operators(vect_operatori, inst, N);
-
-  unsigned int dimension = get_dimension(inst, N);
-
-  int x;
-  x = 16 / Dim;
-
-  int nr_numere = 0;
-  unsigned short *operand = calloc(NR_MAX_numere, sizeof(unsigned short));
+int get_nr_of_op(int Dim, int N) {
+  int nr = 0;
   if (((N + 1) * Dim) % 16 == 0) {
-    nr_numere = ((N + 1) * Dim) / 16;
+    nr = ((N + 1) * Dim) / 16;
   } else if (((N + 1) * Dim) % 16 != 0) {
-    nr_numere = (((N + 1) * Dim) / 16) + 1;
+    nr = (((N + 1) * Dim) / 16) + 1;
   }
+  return nr;
+}
+long int get_result(int nr_numere, int dimension, unsigned short *numere,
+                    unsigned short *operand, int x) {
   long int rezult = 0;
 
   int k = 0;
   for (int i = 0; i < nr_numere; i++) {
     scanf("%hu", &numere[i]);
     for (int j = 0; j < x; j++) {
-      operand[j] = numere[i] << (Dim * j);
-      operand[j] = operand[j] >> (Dim * (x - 1));
+      operand[j] = numere[i] << (dimension * j);
+      operand[j] = operand[j] >> (dimension * (x - 1));
       if ((i == 0) && (j == 0)) {
         rezult = operand[0];
       } else {
@@ -98,11 +85,44 @@ int main() {
       }
     }
   }
+  return result;
+}
 
-  printf("%ld\n", rezult);
-
+void free_memory(unsigned short *operand, unsigned short *numere,
+                 char *vect_operatori) {
   free(operand);
   free(numere);
   free(vect_operatori);
+}
+
+int main() {
+
+  unsigned int inst = 0;
+  scanf("%u", &inst);
+
+  int N = 0;
+  N = get_number_of_instruction(inst);
+
+  unsigned short *numere = calloc(NR_MAX_numere, sizeof(unsigned short));
+  char *vect_operatori = calloc(NR_MAX_numere, sizeof(char));
+
+  initialize_operators(vect_operatori, inst, N);
+
+  unsigned int dimension = get_dimension(inst, N);
+
+  int x;
+  x = 16 / dimension;
+
+  // nr_numere is a variable used to store the number of unsigned short numbers
+  // (operands) that need to be read from the input
+  int nr_numere = get_nr_of_op(dimension, N);
+
+  unsigned short *operand = calloc(NR_MAX_numere, sizeof(unsigned short));
+
+  long int rezult = get_result(nr_numere, dimension, numere, operand, x);
+  printf("%ld\n", rezult);
+
+  free_memory(operand, numere, vect_operatori);
+
   return 0;
 }
