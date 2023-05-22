@@ -4,18 +4,15 @@
 #include <string.h>
 #define NR_MAX_numere 17
 
-int main() {
-
-  unsigned int inst;
-  scanf("%u", &inst);
-  int N;
-  int op;
-  unsigned short *numere = calloc(NR_MAX_numere, sizeof(unsigned short));
-  char *vect_operatori = calloc(NR_MAX_numere, sizeof(char));
-
+int get_number_of_instruction(unsigned int inst) {
+  int N = 0;
   N = inst >> (32 - 3);
-  N = N + 1;
+  N = N + 1; // get number of instructions
+  return N;
+}
 
+void initialize_operators(char *vect_operatori, unsigned int inst, int N) {
+  int op = 0;
   for (int i = 0; i < N; i++) {
     op = inst << (3 + 2 * i);
     op = op >> 30;
@@ -35,14 +32,33 @@ int main() {
       vect_operatori[i] = '/';
     }
   }
+}
 
+unsigned int get_dimension(unsigned int inst, int N) {
   unsigned int Dim = 0;
   Dim = inst << (3 + 2 * N);
   Dim = Dim >> 28;
   Dim++;
+  return Dim;
+}
+int main() {
+
+  unsigned int inst = 0;
+  scanf("%u", &inst);
+
+  int N = 0;
+  N = get_number_of_instruction(inst);
+
+  unsigned short *numere = calloc(NR_MAX_numere, sizeof(unsigned short));
+  char *vect_operatori = calloc(NR_MAX_numere, sizeof(char));
+
+  initialize_operators(vect_operatori, inst, N);
+
+  unsigned int dimension = get_dimension(inst, N);
 
   int x;
   x = 16 / Dim;
+
   int nr_numere = 0;
   unsigned short *operand = calloc(NR_MAX_numere, sizeof(unsigned short));
   if (((N + 1) * Dim) % 16 == 0) {
