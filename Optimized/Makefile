@@ -1,4 +1,4 @@
-CFLAGS=-lm
+CFLAGS=-lm -O3  # added compiler flag for optimization
 
 all: task1 task2 task3 task4
 
