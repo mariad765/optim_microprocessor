@@ -98,6 +98,7 @@ Maria:
 
 Optimization using bits: Task 2 and Task 3.
 Modularization: Task 2 and Task 3.
+
 Alex:
 
 Optimization using bits: Task 1 and Task 4.
