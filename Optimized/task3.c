@@ -148,6 +148,39 @@ case_dimension_l_half_num_bits(int Dim, int nr_numere, unsigned short *numere,
     }
   }
 }
+void get_res(int *rezult, int N, char *vect_operatori,
+             unsigned short *operand) {
+  /* calculates the final result based on the operators and operand values
+  stored in the vect_operatori and operand arrays. It iterates over the range (N
+  + 1) and performs the following steps: It calculates the result (rezult) based
+  on the operator (vect_operatori[p]) and the corresponding operand value
+  (operand[i + 1]). Finally, it increments the p variable to move to the next
+  operator.*/
+  p = 0;
+  for (int i = 0; i <= N; i++) {
+    if (i == 0) {
+      rezult = operand[1];
+    } else {
+      rezult = rezult;
+
+      switch (vect_operatori[p]) {
+      case '+':
+        rezult = operand[i + 1] + rezult;
+        break;
+      case '-':
+        rezult = rezult - operand[i + 1];
+        break;
+      case '*':
+        rezult = rezult * operand[i + 1];
+        break;
+      case '/':
+        rezult = rezult / operand[i + 1];
+        break;
+      }
+      p++;
+    }
+  }
+}
 
 int main() {
 
@@ -179,84 +212,7 @@ int main() {
                                   vect_operatori);
   case_dimension_l_half_num_bits(Dim, nr_numere, numere, operand);
 
-  if (Dim < 8) {
-    int necitit = 0;
-    int g = 1;
-    for (int i = 0; i < nr_numere; i++) {
-
-      int mask = 1 << 15;
-      if (necitit == 1) {
-        for (int j = 0; j < 5; j++) {
-
-          if (mask & numere[i]) {
-            operand[g] += 1 << (Dim - 2 - j - 1);
-          }
-          mask = mask >> 1;
-        }
-        g++;
-        necitit = 0;
-      }
-
-      for (int j = 0; j < 7; j++) {
-
-        if (mask & numere[i]) {
-          operand[g] += 1 << (Dim - j - 1);
-        }
-        mask = mask >> 1;
-      }
-
-      g++;
-      if (g * Dim < 16) {
-        for (int j = 0; j < 7; j++) {
-
-          if (mask & numere[i]) {
-            operand[g] += 1 << (Dim - j - 1);
-          }
-          mask = mask >> 1;
-        }
-
-        g++;
-      }
-
-      if (((i + 1) * 16 - g * 7) < 0) {
-
-        for (int j = 0; j < 2; j++) {
-
-          if (mask & numere[i]) {
-            operand[g] += 1 << (Dim - j - 1);
-          }
-          mask = mask >> 1;
-        }
-
-        necitit = 1;
-      }
-    }
-
-    p = 0;
-    for (int i = 0; i <= N; i++) {
-      if (i == 0) {
-        rezult = operand[1];
-      } else {
-        rezult = rezult;
-
-        switch (vect_operatori[p]) {
-        case '+':
-          rezult = operand[i + 1] + rezult;
-          break;
-        case '-':
-          rezult = rezult - operand[i + 1];
-          break;
-        case '*':
-          rezult = rezult * operand[i + 1];
-          break;
-        case '/':
-          rezult = rezult / operand[i + 1];
-          break;
-        }
-        p++;
-      }
-    }
-  }
+  get_res(&rezult, N, *vect_operatori, operand);
 
   printf("%ld\n", rezult);
 
