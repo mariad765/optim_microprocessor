@@ -13,6 +13,7 @@ int get_number_of_instruction(unsigned int inst) {
 
 void initialize_operators(char *vect_operatori, unsigned int inst, int N) {
   int op = 0;
+  memset(vect_operatori, '+', NR_MAX_numere);
   for (int i = 0; i < N; i++) {
     op = inst << (3 + 2 * i);
     op = op >> 30;
