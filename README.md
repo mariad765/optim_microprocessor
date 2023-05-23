@@ -1,4 +1,4 @@
-# optim_microprocessor
+# optim_miniproprocessor
 Optimizare Microprocesor
 #TEAM
 Dobre Maria-Adina
