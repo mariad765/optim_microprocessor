@@ -1,3 +1,5 @@
 # This readme is for this folder only
 
 # Folder made for checking the project
+
+# Makefile: the makefile will build the object files using the rule make. It will run valgrind command and in the same directory will create 4 textfiles to print the output of valgrind. The rule is make valgrind.
