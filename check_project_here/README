@@ -2,6 +2,7 @@
 
 # Folder made for checking the project
 
-# Makefile: the makefile will build the object files using the rule make. It will run valgrind command and in the same directory will create 4 textfiles to print the output of valgrind. The rule is make valgrind.
+# Makefile: the makefile will build the object files using the rule make. It will run valgrind command and in the same directory will create 4 textfiles to print the output 
+of valgrind. The rule is make valgrind.
 # The checker: the checker is from OCW website, for school project purpose. It is the official checker slightly modifid to work on the optimized version on the project.
 # Tracking the time... execution time will be calculated in the code of each task file. The output will be printed in a different file foreach task.
