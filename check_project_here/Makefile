@@ -23,3 +23,4 @@ valgrind: all
 
 clean:
 	rm -f task1 task2 task3 task4 valgrind_task*.log
+
