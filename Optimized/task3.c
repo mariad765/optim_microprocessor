@@ -1,4 +1,4 @@
-#include "Functions.h"
+#include "Funtions.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -8,15 +8,10 @@ void read_nums(unsigned short *numere, int nr_numere) {
   }
 }
 
-void init_op(unsigned short *operand, int N) {
-  for (int i = 0; i < N + 1; i++) {
-    operand[i] = 0;
-  }
-}
 void case_dimmention_g_half_num_bits(int Dim, int nr_numere,
                                      unsigned short *numere,
                                      unsigned short *operand,
-                                     char *vect_operatori) {
+                                     char *vect_operatori, long int *rezult) {
   /* 6 (if Dim > 8):
 
   This iteration processes the numbers and performs the corresponding
@@ -33,6 +28,7 @@ void case_dimmention_g_half_num_bits(int Dim, int nr_numere,
   int k = 1;
   int p = 0;
   if (Dim > 8) {
+
     for (int i = 0; i < nr_numere; i++) {
       int mask = 1 << 15;
       for (int j = k; j <= Dim; j++) {
@@ -44,22 +40,22 @@ void case_dimmention_g_half_num_bits(int Dim, int nr_numere,
       }
 
       if (i == 0) {
-        rezult = operand[0];
+        *rezult = operand[0];
       } else {
-        rezult = rezult;
+        *rezult = *rezult;
 
         switch (vect_operatori[p]) {
         case '+':
-          rezult = operand[i] + rezult;
+          *rezult = operand[i] + *rezult;
           break;
         case '-':
-          rezult = rezult - operand[i];
+          *rezult = *rezult - operand[i];
           break;
         case '*':
-          rezult = rezult * operand[i];
+          *rezult = *rezult * operand[i];
           break;
         case '/':
-          rezult = rezult / operand[i];
+          *rezult = *rezult / operand[i];
           break;
         }
 
@@ -78,8 +74,11 @@ void case_dimmention_g_half_num_bits(int Dim, int nr_numere,
   }
 }
 
-case_dimension_l_half_num_bits(int Dim, int nr_numere, unsigned short *numere,
-                               unsigned short *operand) {
+void case_dimension_l_half_num_bits(int Dim, int nr_numere,
+                                    unsigned short *numere,
+                                    unsigned short *operand,
+                                    char *vect_operatori, int long *rezult,
+                                    int N) {
   /*(if Dim < 8):
 
   This iteration processes the numbers and performs the corresponding operations
@@ -110,6 +109,7 @@ case_dimension_l_half_num_bits(int Dim, int nr_numere, unsigned short *numere,
         }
         g++;
         necitit = 0;
+        // printf("aleluia");
       }
 
       for (int j = 0; j < 7; j++) {
@@ -119,7 +119,7 @@ case_dimension_l_half_num_bits(int Dim, int nr_numere, unsigned short *numere,
         }
         mask = mask >> 1;
       }
-
+      // printf("this is operrand %hu\n", operand[g]);
       g++;
       if (g * Dim < 16) {
         for (int j = 0; j < 7; j++) {
@@ -129,12 +129,13 @@ case_dimension_l_half_num_bits(int Dim, int nr_numere, unsigned short *numere,
           }
           mask = mask >> 1;
         }
-
+        //  printf("this is operrand %hu\n", operand[g]);
         g++;
+        // printf("%d\n", g);
       }
 
       if (((i + 1) * 16 - g * 7) < 0) {
-
+        // printf("merge");
         for (int j = 0; j < 2; j++) {
 
           if (mask & numere[i]) {
@@ -146,38 +147,30 @@ case_dimension_l_half_num_bits(int Dim, int nr_numere, unsigned short *numere,
         necitit = 1;
       }
     }
-  }
-}
-void get_res(int *rezult, int N, char *vect_operatori,
-             unsigned short *operand) {
-  /* calculates the final result based on the operators and operand values
-  stored in the vect_operatori and operand arrays. It iterates over the range (N
-  + 1) and performs the following steps: It calculates the result (rezult) based
-  on the operator (vect_operatori[p]) and the corresponding operand value
-  (operand[i + 1]). Finally, it increments the p variable to move to the next
-  operator.*/
-  p = 0;
-  for (int i = 0; i <= N; i++) {
-    if (i == 0) {
-      rezult = operand[1];
-    } else {
-      rezult = rezult;
 
-      switch (vect_operatori[p]) {
-      case '+':
-        rezult = operand[i + 1] + rezult;
-        break;
-      case '-':
-        rezult = rezult - operand[i + 1];
-        break;
-      case '*':
-        rezult = rezult * operand[i + 1];
-        break;
-      case '/':
-        rezult = rezult / operand[i + 1];
-        break;
+    int p = 0;
+    for (int i = 0; i <= N; i++) {
+      if (i == 0) {
+        *rezult = operand[1];
+      } else {
+        *rezult = *rezult;
+
+        switch (vect_operatori[p]) {
+        case '+':
+          *rezult = operand[i + 1] + *rezult;
+          break;
+        case '-':
+          *rezult = *rezult - operand[i + 1];
+          break;
+        case '*':
+          *rezult = *rezult * operand[i + 1];
+          break;
+        case '/':
+          *rezult = *rezult / operand[i + 1];
+          break;
+        }
+        p++;
       }
-      p++;
     }
   }
 }
@@ -186,33 +179,32 @@ int main() {
 
   unsigned int inst; // instruction
   scanf("%u", &inst);
-  int N;  // number of instructions
-  int op; // ver deciding operatiors
+  int N = get_number_of_instruction(inst);
+  // number of instructions
 
   unsigned short *numere = calloc(NR_MAX_numere, sizeof(unsigned short));
   char *vect_operatori = calloc(NR_MAX_numere, sizeof(char));
-
-  N = get_number_of_instruction(inst);
 
   initialize_operators(vect_operatori, inst, N);
 
   unsigned int Dim = get_dimension(inst, N);
 
   // numbers that needs to be operated on to figure out the operands
-  int nr_numere = get_nr_of_op((Dim, N));
+  int nr_numere = get_nr_of_op(Dim, N);
 
   unsigned short *operand = calloc(NR_MAX_numere, sizeof(unsigned short));
 
   long int rezult = 0;
 
   read_nums(numere, nr_numere);
-  init_op(operand, N);
 
+  for (int i = 0; i < N + 1; i++) {
+    operand[i] = 0;
+  }
   case_dimmention_g_half_num_bits(Dim, nr_numere, numere, operand,
-                                  vect_operatori);
-  case_dimension_l_half_num_bits(Dim, nr_numere, numere, operand);
-
-  get_res(&rezult, N, *vect_operatori, operand);
+                                  vect_operatori, &rezult);
+  case_dimension_l_half_num_bits(Dim, nr_numere, numere, operand,
+                                 vect_operatori, &rezult, N);
 
   printf("%ld\n", rezult);
 
