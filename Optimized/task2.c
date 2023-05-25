@@ -40,13 +40,6 @@ long int get_result(int nr_numere, int dimension, unsigned short *numere,
   return rezult;
 }
 
-void free_memory(unsigned short *operand, unsigned short *numere,
-                 char *vect_operatori) {
-  free(operand);
-  free(numere);
-  free(vect_operatori);
-}
-
 int main() {
 
   unsigned int inst = 0;

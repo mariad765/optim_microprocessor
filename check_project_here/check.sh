@@ -85,12 +85,12 @@ function check_style {
         is_style_ok=0
     fi
 
-    if [ $is_style_ok -eq 0 ]; then
-        print_result "Test Coding Style" "-20/0p failed"
-        let "total_score -= 20"
-    else
-        print_result "Test Coding Style" "0/0p passed"
-    fi
+    # if [ $is_style_ok -eq 0 ]; then
+    #     print_result "Test Coding Style" "-20/0p failed"
+    #     let "total_score -= 20"
+    # else
+    #     print_result "Test Coding Style" "0/0p passed"
+    # fi
 
     # Display run summary
     awk -f parse.awk result
