@@ -50,6 +50,7 @@ function check_task {
             let "total_score += $test_score"
             print_result "Test ${test_id}" "${test_score}/${test_score}p passed"
         else
+         
             print_result "Test ${test_id}" "0/${test_score}p failed"
         fi
     done

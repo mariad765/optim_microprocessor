@@ -14,9 +14,9 @@ void print_operators(int operators) {
 }
 
 int main() {
-  unsigned int instructions;
-  scanf("%u", &instructions);        // scanning the instruction
-  int numberOfOperations, operators; // declaring the
+  unsigned int instructions = 0;
+  scanf("%u", &instructions);                // scanning the instruction
+  int numberOfOperations = 0, operators = 0; // declaring the
   // number of operations and their types
 
   numberOfOperations = instructions >> (32 - 3); // shifting the first 3 bits

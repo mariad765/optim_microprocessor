@@ -177,7 +177,7 @@ void case_dimension_l_half_num_bits(int Dim, int nr_numere,
 
 int main() {
 
-  unsigned int inst; // instruction
+  unsigned int inst = 0; // instruction
   scanf("%u", &inst);
   int N = get_number_of_instruction(inst);
   // number of instructions
