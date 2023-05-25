@@ -1,5 +1,5 @@
 CFLAGS=-lm -O3  # added compiler flag for optimization
-INCLUDES=-I/home/kali/PCLP3/pclp3proj  # specify the correct path to the header files
+INCLUDES=-I/. # specify the correct path to the header files
 
 all: task1 task2 task3 task4
 
