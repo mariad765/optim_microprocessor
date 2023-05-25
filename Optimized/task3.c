@@ -208,5 +208,7 @@ int main() {
 
   printf("%ld\n", rezult);
 
+  free_memory(operand, numere, vect_operatori);
+
   return 0;
 }

@@ -7,6 +7,13 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+extern void free_memory(unsigned short *operand, unsigned short *numere,
+                        char *vect_operatori) {
+  free(operand);
+  free(numere);
+  free(vect_operatori);
+}
+
 extern int get_number_of_instruction(unsigned int inst) {
   int N = 0;
   N = inst >> (32 - 3);
