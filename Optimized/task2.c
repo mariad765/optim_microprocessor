@@ -42,6 +42,11 @@ long int get_result(int nr_numere, int dimension, unsigned short *numere,
 
 int main() {
 
+  struct timespec start_time, end_time;
+  double execution_time;
+
+  clock_gettime(CLOCK_MONOTONIC, &start_time);
+
   unsigned int inst = 0;
   scanf("%u", &inst);
 
@@ -69,6 +74,19 @@ int main() {
   printf("%ld\n", rezult);
 
   free_memory(operand, numere, vect_operatori);
+
+  clock_gettime(CLOCK_MONOTONIC, &end_time);
+  execution_time = (end_time.tv_sec - start_time.tv_sec) +
+                   (end_time.tv_nsec - start_time.tv_nsec) / 1e9;
+
+  FILE *output_file = fopen("execution_time_task2.txt", "w");
+  if (output_file == NULL) {
+    printf("Error opening the output file.\n");
+    return 1;
+  }
+
+  fprintf(output_file, "Execution time: %.7f seconds\n", execution_time);
+  fclose(output_file);
 
   return 0;
 }

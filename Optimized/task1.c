@@ -1,6 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void print_operators(int operators) {
   if (operators == 0)
@@ -14,9 +15,14 @@ void print_operators(int operators) {
 }
 
 int main() {
-  unsigned int instructions;
-  scanf("%u", &instructions);        // scanning the instruction
-  int numberOfOperations, operators; // declaring the
+  struct timespec start_time, end_time;
+  double execution_time;
+
+  clock_gettime(CLOCK_MONOTONIC, &start_time);
+
+  unsigned int instructions = 0;
+  scanf("%u", &instructions);                // scanning the instruction
+  int numberOfOperations = 0, operators = 0; // declaring the
   // number of operations and their types
 
   numberOfOperations = instructions >> (32 - 3); // shifting the first 3 bits
@@ -34,5 +40,18 @@ int main() {
   dimension = dimension >> 28;
   dimension++;
   printf(" %u\n", dimension); // and finally printing it
+
+  clock_gettime(CLOCK_MONOTONIC, &end_time);
+  execution_time = (end_time.tv_sec - start_time.tv_sec) +
+                   (end_time.tv_nsec - start_time.tv_nsec) / 1e9;
+
+  FILE *output_file = fopen("execution_time_task1.txt", "w");
+  if (output_file == NULL) {
+    printf("Error opening the output file.\n");
+    return 1;
+  }
+
+  fprintf(output_file, "Execution time: %.7f seconds\n", execution_time);
+  fclose(output_file);
   return 0;
 }
