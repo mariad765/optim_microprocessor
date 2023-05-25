@@ -7,6 +7,12 @@ Chiorean Alexandru
 #TITLE
 Optimized Miniprocessor in C: Basic processor that decodes a bit string and executes it.
 
+#STRUCTURE:
+optimized - dir with optimized code + makefile
+check_project_here - dir for  building , running, checking time and memory
+inneficient - dir with the inneficient version of the project/ no checker here
+compare - dir with valgrind and time reports for both efficient and non-efficient versions
+
 #NOTE:
 EACH TASK CAN BE INDIVIDUAL;
 EACH TASK IS INDIVIDUALLY CHECKED WITH VALGRIND. (MAKEFILE);
