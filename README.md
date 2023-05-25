@@ -1,4 +1,4 @@
-# optim_microprocessor
+# optim_miniproprocessor
 Optimizare Microprocesor
 #TEAM
 Dobre Maria-Adina
@@ -6,6 +6,9 @@ Chiorean Alexandru
 
 #TITLE
 Optimized Miniprocessor in C: Basic processor that decodes a bit string and executes it.
+
+#NOTE:
+EACH TASK CAN BE INDIVIDUAL
 
 #DESCRIPTION
 task1 - Decode Instructions
@@ -103,6 +106,7 @@ Alex:
 
 Optimization using bits: Task 1 and Task 4.
 Modularization: Task 1 and Task 4.
+
 #GIT REPO
 
 https://github.com/mariad765/optim_microprocessor
