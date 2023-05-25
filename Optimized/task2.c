@@ -1,59 +1,10 @@
+#include "Funtions.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#define NR_MAX_numere 17
 
-int get_number_of_instruction(unsigned int inst) {
-  int N = 0;
-  N = inst >> (32 - 3);
-  N = N + 1; // get number of instructions
-  return N;
-}
-
-void initialize_operators(char *vect_operatori, unsigned int inst, int N) {
-  int op = 0;
-  memset(vect_operatori, '+', NR_MAX_numere);
-  for (int i = 0; i < N; i++) {
-    op = inst << (3 + 2 * i);
-    op = op >> 30;
-    if (op == 0) {
-
-      vect_operatori[i] = '+';
-    }
-
-    if (op == 1) {
-      vect_operatori[i] = '-';
-    }
-
-    if (op == -2) {
-      vect_operatori[i] = '*';
-    }
-    if (op == -1) {
-      vect_operatori[i] = '/';
-    }
-  }
-}
-
-unsigned int get_dimension(unsigned int inst, int N) {
-  unsigned int Dim = 0;
-  Dim = inst << (3 + 2 * N);
-  Dim = Dim >> 28;
-  Dim++;
-  return Dim;
-}
-
-int get_nr_of_op(int Dim, int N) {
-  int nr = 0;
-  if (((N + 1) * Dim) % 16 == 0) {
-    nr = ((N + 1) * Dim) / 16;
-  } else if (((N + 1) * Dim) % 16 != 0) {
-    nr = (((N + 1) * Dim) / 16) + 1;
-  }
-  return nr;
-}
 long int get_result(int nr_numere, int dimension, unsigned short *numere,
-                    unsigned short *operand, int x) {
+                    unsigned short *operand, int x, char *vect_operatori) {
   long int rezult = 0;
 
   int k = 0;
@@ -86,7 +37,7 @@ long int get_result(int nr_numere, int dimension, unsigned short *numere,
       }
     }
   }
-  return result;
+  return rezult;
 }
 
 void free_memory(unsigned short *operand, unsigned short *numere,
@@ -110,7 +61,6 @@ int main() {
   initialize_operators(vect_operatori, inst, N);
 
   unsigned int dimension = get_dimension(inst, N);
-
   int x;
   x = 16 / dimension;
 
@@ -120,7 +70,9 @@ int main() {
 
   unsigned short *operand = calloc(NR_MAX_numere, sizeof(unsigned short));
 
-  long int rezult = get_result(nr_numere, dimension, numere, operand, x);
+  long int rezult =
+      get_result(nr_numere, dimension, numere, operand, x, vect_operatori);
+
   printf("%ld\n", rezult);
 
   free_memory(operand, numere, vect_operatori);
