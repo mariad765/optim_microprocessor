@@ -101,11 +101,13 @@ Maria:
 
 Optimization using bits: Task 2 and Task 3.
 Modularization: Task 2 and Task 3.
+Building Makefiles, added valgrind rule.
 
 Alex:
 
 Optimization using bits: Task 1 and Task 4.
 Modularization: Task 1 and Task 4.
+Added time checking.
 
 #GIT REPO
 
