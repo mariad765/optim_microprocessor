@@ -9,6 +9,8 @@ Optimized Miniprocessor in C: Basic processor that decodes a bit string and exec
 
 #NOTE:
 EACH TASK CAN BE INDIVIDUAL
+EACH TASK IS INDIVIDUALLY CHECKED WITH VALGRIND. (MAKEFILE)
+THE TIME FOR EXECUTION IS CHECKED INDIVIDUALLY FOR EACH TASK. (PART OF C CODE)
 
 #DESCRIPTION
 task1 - Decode Instructions
