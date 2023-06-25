@@ -109,7 +109,7 @@ Maria:
 
 Optimization using bits: Task 2 and Task 3.
 Modularization: Task 2 and Task 3.
-Building Makefiles, added valgrind rule.
+Building Makefiles, added valgrind rule. Added time checking.
 
 Alex:
 
